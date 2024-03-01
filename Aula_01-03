@@ -1,0 +1,45 @@
+
+# Regressão 01/03/2024 #
+
+# Variável X
+x = c(1.2, 1.3, 1.4, 1.6, 1.6, 1.8, 1.9, 1.9, 2.2, 2.2, 2.6)
+
+# Variável Y
+y = c(16, 12, 12, 14, 10, 14, 12, 9.9, 10, 7, 7.5)
+
+length(x); length(y)
+
+# Grafico
+# pch muda o estilo das bolinhas
+
+plot(x, y, pch = 19, ylab = "Desempenho (Km/l)", xlab = "Peso (t)")
+
+# Cor diferente de um par ordenado específico
+points(1.6, 14, pch = 19, col="blue")
+
+points(c(1.6, 1.6, 2.2, 2.2), c(14, 10, 10, 7), pch=19, col="blue")
+
+# Modelo; função lm realiza o ajuste da reta ou modelo de regressão linear
+# B0 é o intercepto e B1 é o coeficiente da variável peso
+m = lm(y~x); m
+
+# Reta ajustada
+abline(m)
+# ou
+# abline(20.2, -5), apenas com os coeficiente ele já calcula a reta
+
+# Texto no camto superior direito
+# comando cex muda o tamanho da fonte e family muda a fonte
+text(2.5, 16, "Coeficientes: 20.2, -5.0", cex=0.5, family="serif")
+
+library("ggplot2")
+
+# Função que pega algum valor de X de mostra o desempenho estimado
+yc =function(f){
+  20.199-4.964*f
+}
+
+dados = data.frame(x, y); dados
+
+
+         
