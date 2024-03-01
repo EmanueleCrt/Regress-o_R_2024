@@ -51,4 +51,8 @@ yc(1.5)
 # Pontos estimado no gráfico
 points(x, yc(x), pch = 17, cex = 2, col = "red")
 
+# Função que não espera um vetor, e sim um modelo. Ela já retorna Y_chapeu
+predict(m)
+yc(x)
+
 
