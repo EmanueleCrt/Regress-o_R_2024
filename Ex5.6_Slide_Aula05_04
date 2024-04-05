@@ -1,0 +1,65 @@
+
+### Exercício 10.1 do Holffman & Exercício 5.6 do Slide ###
+
+# X é a resistência à compressao
+res = c(1.7, 4.1, 1.9, 3.9, 1.7, 4.1, 2, 6.1,
+        1.7, 3.8, 1.7, 3.8, 2.2, 4.3)
+
+# Y é a permeabilidade intrínseca
+per = c(45, 38, 45, 38, 44, 38, 43, 37, 44, 38, 45, 38, 43, 36)
+
+n = length(per); n
+
+# Estatisticas
+sx = sum(res); sx
+sy = sum(per)
+sx2 = sum(res^2)
+sy2 = sum(per^2)
+
+# a) Coeficientes estimados #
+
+m = lm(per~res); m
+
+# b) ANOVA #
+
+anova(m)
+
+# Gera o SQReg #
+# A função predict() gera os valores de Y_chapéu
+sum((predict(m)-mean(per))^2)
+
+# O primeiro é calculando de forma maual, o segundo é usando a função
+#         B0    +    B1     *  x  combinados com Y_chapeu     
+cbind(m$coef[1] + m$coef[2] * res, predict(m))
+
+# Gera o SQT #
+sum((per - mean(per))^2)
+
+# Gera o SQRes #
+sum((per-predict(m))^2)
+
+#     Y   - Y_chapeu  combinado com os residuos (E_chapeu)
+cbind(per - predict(m), residuals(m))
+
+
+# P-valor = P(F > F_cal)#
+# comando low() entrega argumentos menores ou iguais a 74.633
+pf(74.633,1 ,12 , low = FALSE)
+
+# rejeita H0 pois p-valor < alpha, logo o modelo é significativo
+
+# Pergunta: A partir de qual alpha eu não rejeito a hipótese H0?
+
+
+### O prof iventado coisa ###
+# alpha = 5% -> valor crítico: F quando F_(1-alpha/2, 1, 12) = F_0.975
+# é um quantil da F
+# Valor crítico do lado direito do gráfico
+qf(0.975, 1, 12)
+
+# Valor crítico do lado esquerdo do gráfico
+qf(0.025, 1, 12)
+
+# Decição: Rejeita H0 quando o F0 > F
+
+
