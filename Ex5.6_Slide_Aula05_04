@@ -62,7 +62,7 @@ qf(0.975, 1, 12)
 # Valor crítico do lado esquerdo do gráfico
 qf(0.025, 1, 12)
 
-#ps.: n sei pq nao funcionou
+# ps.: n sei pq nao funcionou e nem o que faz
 qf(74.633, 1, 12, low=FALSE)
 
 # Entregar uma probabilidade e calcular para que retorne o quantil (F0)
