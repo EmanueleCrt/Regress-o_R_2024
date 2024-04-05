@@ -51,15 +51,29 @@ pf(74.633,1 ,12 , low = FALSE)
 # Pergunta: A partir de qual alpha eu não rejeito a hipótese H0?
 
 
-### O prof iventado coisa ###
+### O prof iventando coisa ###
 # alpha = 5% -> valor crítico: F quando F_(1-alpha/2, 1, 12) = F_0.975
 # é um quantil da F
 # Valor crítico do lado direito do gráfico
 qf(0.975, 1, 12)
 
+# Decição: Rejeita H0 quando o F0 > F
+
 # Valor crítico do lado esquerdo do gráfico
 qf(0.025, 1, 12)
 
-# Decição: Rejeita H0 quando o F0 > F
+#ps.: n sei pq nao funcionou
+qf(74.633, 1, 12, low=FALSE)
+
+# Entregar uma probabilidade e calcular para que retorne o quantil (F0)
+qf(1-pf(74.633, 1, 12, low=FALSE), 1, 12)
+
+# c) Testar a significancia
+# Rejeita H0: B1 = 0.
+
+
+
+
+
 
 
