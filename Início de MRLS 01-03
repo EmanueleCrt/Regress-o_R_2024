@@ -1,58 +1,65 @@
 
-# Regressão 01/03/2024 #
+# Aula 15/07
 
-# Início de MRLS #
+#Reta Distribuição F-Snedecor
+qf(0.05, 4, 9)
 
-# Variável X
-x = c(1.2, 1.3, 1.4, 1.6, 1.6, 1.8, 1.9, 1.9, 2.2, 2.2, 2.6)
-
-# Variável Y
-y = c(16, 12, 12, 14, 10, 14, 12, 9.9, 10, 7, 7.5)
-
-length(x); length(y)
-
-# Grafico
-# pch muda o estilo das bolinhas
-
-plot(x, y, pch = 19, ylab = "Desempenho (Km/l)", xlab = "Peso (t)")
-
-# Cor diferente de um par ordenado específico
-points(1.6, 14, pch = 19, col="blue")
-
-points(c(1.6, 1.6, 2.2, 2.2), c(14, 10, 10, 7), pch=19, col="blue")
-
-# Modelo; função lm realiza o ajuste da reta ou modelo de regressão linear
-# B0 é o intercepto e B1 é o coeficiente da variável peso
-m = lm(y~x); m
-
-# Reta ajustada
-abline(m)
-# ou
-# abline(20.2, -5), apenas com os coeficiente ele já calcula a reta
-
-# Texto no camto superior direito
-# comando cex muda o tamanho da fonte e family muda a fonte
-text(2.5, 16, "Coeficientes: 20.2, -5.0", cex=0.5, family="serif")
-
-library("ggplot2")
-
-# Função que pega algum valor de X de mostra o desempenho estimado, é o Y_chapeu
-yc = function(f){
-  20.199 - 4.964*f
+f = function(x){
+  df(x, 4, 9)
 }
 
-# usando yc(x) retorna todos os valores de X ajustados
+curve(f, 0, 5)
+points(qf(0.05, 4, 9), 0, pch = 19)
 
-df = data.frame(x, y, yc(x)); df
+qf(0.95, 4, 9)
+points(qf(0.95, 4, 9), 0, pch = 19)
 
-# Desempenho com 1.5 toneladas                
-yc(1.5)
+#Exercicio 10.12 Montgopmery
 
-# Pontos estimado no gráfico
-points(x, yc(x), pch = 17, cex = 2, col = "red")
+d12 = data.frame(Ex10_12); d12
 
-# Função que não espera um vetor, e sim um modelo. Ela já retorna Y_chapeu
-predict(m)
+attach(d12) #fixa a tabela para pular os elementos diretamente
+
+# a)
+plot(x, y, pch = 19)
+
+# Tambem poderia ter exportado direto com:
+# d = read.table("Ex_10_12.txt", head = TRUE)
+# attach(d) .....
+
+# b) Modelo ajustdado
+m = lm(y~x); m
+
+abline(m, lwd = 2)
+
+# Converter semanas em dias e adicionar no data.frame
+x1 = x*7; x1
+d12["x1"]= d12$x
+d12
+
+detach(d12)
+
+m1 = lm(y~x1)
+m; m1
+
+# c)
+yc = function(x){
+  m$coef[1] + m$coef[2]*x
+}
+yc(20)
+
+points(20, yc(20), pch = 19, col = "red")
+
+# d) Valores preditos
+
+# Nossa função já faz
 yc(x)
 
+# ou poderia usar:
+# predict(m)
+# m$fitted.values
 
+#y_chapeu vs y
+plot(yc(x), y, pch = 19)
+
+# Se a relação fosse perfeita, os dois y seriam pontos alinhados
