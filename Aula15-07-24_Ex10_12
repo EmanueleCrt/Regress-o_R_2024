@@ -1,0 +1,33 @@
+
+# Aula 15/07
+
+#Reta Distribuição F-Snedecor
+qf(0.05, 4, 9)
+
+f = function(x){
+  df(x, 4, 9)
+}
+
+curve(f, 0, 5)
+points(qf(0.05, 4, 9), 0, pch = 19)
+
+qf(0.95, 4, 9)
+points(qf(0.95, 4, 9), 0, pch = 19)
+
+#Exercicio 10.12 Montgopmery
+
+d12 = data.frame(Ex10_12); d12
+
+attach(d12) #fixa a tabela para pular os elementos diretamente
+
+# a)
+plot(x, y, pch = 19)
+
+# Tambem poderia ter exportado direto com:
+# d = read.table("Ex_10_12.txt", head = TRUE)
+# attach(d) .....
+
+# b)
+m = lm(y~x); m
+
+abline(m, lwd = 2)
